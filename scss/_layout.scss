@@ -1,0 +1,14 @@
+@use 'variable' as *;
+@use 'modules' as *;
+
+main {
+  margin-top: 100px; // 固定ヘッダーの高さと同じ
+}
+
+// _layout.scss 
+.section__inner {
+  max-width: 1440px;
+  width: 100%;
+  padding: 0 180px;
+  margin: 0 auto;
+}

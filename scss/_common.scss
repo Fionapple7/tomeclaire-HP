@@ -1,0 +1,29 @@
+@use 'variable' as *;
+@use 'layout' as *;
+
+body {
+    color: $textColor-2;
+    font-family: $playfair, $serif, $sans, serif;  
+ 
+}
+
+h2{
+    font-size: 56px;
+}
+
+h3{
+    font-size: 24px;
+}
+
+
+p{
+    font-size: 16px;
+}   
+
+li{
+    list-style: none;
+}
+
+
+
+
