@@ -176,9 +176,8 @@
   text-align: center;
 }
 .works__inner {
-  max-width: 1440px;
-  margin: 0 auto;
-  padding: 120px 180px;
+  padding-top: 120px;
+  padding-bottom: 120px;
 }
 .works__title {
   font-family: "Playfair Display";
@@ -403,7 +402,6 @@
   margin-bottom: 24px;
 }
 .site-footer__copy {
-  font-size: 14px;
   color: #684533;
   font-family: "Noto Sans JP";
   font-weight: 400;
@@ -416,8 +414,18 @@ main {
 .section__inner {
   max-width: 1440px;
   width: 100%;
-  padding: 0 180px;
   margin: 0 auto;
+  padding-inline: 180px;
+}
+@media (max-width: 1024px) {
+  .section__inner {
+    padding-inline: 80px;
+  }
+}
+@media (max-width: 768px) {
+  .section__inner {
+    padding-inline: 24px;
+  }
 }
 
 body {
