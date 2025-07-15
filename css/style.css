@@ -393,7 +393,6 @@
   .order__price-heading {
     font-size: 20px;
     text-align: center;
-    line-height: 1.2;
   }
 }
 .order__list-wrap {
@@ -443,6 +442,13 @@
   text-align: left;
   margin-top: 80px;
 }
+@media screen and (max-width: 599px) {
+  .order__flow-title {
+    font-size: 24px;
+    text-align: center;
+    margin-top: 96px;
+  }
+}
 
 .order__step {
   margin-bottom: 48px;
@@ -455,12 +461,28 @@
   margin-bottom: 16px;
   line-height: 1.5;
 }
+@media screen and (max-width: 599px) {
+  .order__step .step__title {
+    font-size: 16px;
+    padding: 0 15%;
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+}
 .order__step p {
   font-size: 16px;
   font-family: "Noto Sans JP";
   color: #684533;
   line-height: 1.8;
   margin-left: 96px;
+}
+@media screen and (max-width: 599px) {
+  .order__step p {
+    font-size: 12px;
+    line-height: 1.15;
+    margin-left: 0;
+    padding: 0 15%;
+  }
 }
 
 .order__cta {
@@ -502,6 +524,11 @@
   color: #fff;
   margin-bottom: 24px;
   text-align: center;
+}
+@media screen and (max-width: 599px) {
+  .contact-prompt__text {
+    font-size: 14px;
+  }
 }
 .contact-prompt .btn {
   margin-left: 32px;
@@ -617,15 +644,6 @@ li {
 @media screen and (max-width: 599px) {
   .sp-none {
     display: none;
-  }
-}
-
-.br-sp {
-  display: none;
-}
-@media screen and (max-width: 599px) {
-  .br-sp {
-    display: inline;
   }
 }
 
