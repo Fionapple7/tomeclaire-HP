@@ -42,7 +42,10 @@ const closeMenu = () => {
 
 // ハンバーガーアイコンをクリック
 hamIcon.addEventListener("click", () => {
-  menuOpen ? closeMenu() : openMenu();
+  console.log("ハンバーガーアイコンがクリックされました！");   
+  hamPanel.style.display = 'flex';
+  console.log("display: flexになりました！");
+
 });
 
 // メニューリンクをクリックしたら閉じる
@@ -50,4 +53,11 @@ hamLinks.forEach(link => {
   link.addEventListener("click", () => {
     if (menuOpen) closeMenu();
   });
+});
+
+const closeButton = document.querySelector('.ham-menu__close');
+const menuPanel = document.querySelector('.ham-menu__panel');
+
+closeButton.addEventListener('click', () => {
+  menuPanel.style.display = 'none';
 });
