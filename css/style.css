@@ -128,6 +128,90 @@
   color: #FFFFFF;
 }
 
+.ham-menu__panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(203, 173, 116, 0.95);
+  z-index: 999;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  will-change: opacity, transform;
+}
+.ham-menu__panel.is-open {
+  display: flex;
+  -webkit-animation: fadeIn 0.3s ease-out;
+          animation: fadeIn 0.3s ease-out;
+}
+.ham-menu__panel .ham-menu__list {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 32px;
+  text-align: center;
+}
+.ham-menu__panel .ham-menu__list li {
+  margin-bottom: 16px;
+}
+.ham-menu__panel .ham-menu__list li a {
+  font-size: 20px;
+  font-family: "Playfair Display";
+  color: #FFFFFF;
+  text-decoration: none;
+}
+.ham-menu__panel .ham-menu__sns {
+  display: flex;
+  gap: 24px;
+}
+.ham-menu__panel .ham-menu__sns a {
+  font-size: 24px;
+  color: #FFFFFF;
+}
+.ham-menu__panel .ham-menu__overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(203, 173, 116, 0.7);
+  z-index: 998;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+.ham-menu__panel .ham-menu__close {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  font-size: 28px;
+  background: none;
+  border: none;
+  color: #FFFFFF;
+  cursor: pointer;
+  font-family: "Noto Sans JP";
+  transition: transform 0.3s ease;
+}
+.ham-menu__panel .ham-menu__close:hover {
+  transform: scale(1.2);
+}
+.ham-menu__panel .ham-menu__panel .ham-menu__list a {
+  transition: color 0.3s ease;
+}
+.ham-menu__panel .ham-menu__panel .ham-menu__list a:hover {
+  color: #F9D16C;
+}
+.ham-menu__panel .ham-menu__panel .ham-menu__sns a {
+  transition: transform 0.3s ease;
+}
+.ham-menu__panel .ham-menu__panel .ham-menu__sns a:hover {
+  transform: scale(1.2);
+  color: #F9D16C;
+}
+
 .hero {
   position: relative;
   height: 1024px;
