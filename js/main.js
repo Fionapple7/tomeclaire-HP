@@ -15,35 +15,39 @@ const hamLinks = document.querySelectorAll(".ham-menu__panel a");
 let menuOpen = false;
 
 // 開くアニメーション
-const openMenu = () => {
-  hamPanel.style.display = "flex"; // 表示切り替え（GSAPでアニメーション）
+//const openMenu = () => {
+  //hamPanel.style.display = "flex"; // 表示切り替え（GSAPでアニメーション）
 
-  gsap.fromTo(hamPanel,
-    { opacity: 0, y: -30 },
-    { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }
-  );
+  //gsap.fromTo(hamPanel,
+   // { opacity: 0, y: -30 },
+    //{ opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }
+ // );
 
-  menuOpen = true;
-};
+  //menuOpen = true;
+//};
 
 // 閉じるアニメーション
-const closeMenu = () => {
-  gsap.to(hamPanel, {
-    opacity: 0,
-    y: -30,
-    duration: 0.4,
-    ease: "power2.in",
-    onComplete: () => {
-      hamPanel.style.display = "none"; // 表示解除
-      menuOpen = false;
-    }
-  });
-};
+//const closeMenu = () => {
+  //gsap.to(hamPanel, {
+    //opacity: 0,
+    //y: -30,
+    //duration: 0.4,
+   // ease: "power2.in",
+   // onComplete: () => {
+      //hamPanel.style.display = "none"; // 表示解除
+      //menuOpen = false;
+    //}
+ //});
+//};
 
 // ハンバーガーアイコンをクリック
 hamIcon.addEventListener("click", () => {
   console.log("ハンバーガーアイコンがクリックされました！");   
   hamPanel.style.display = 'flex';
+  gsap.fromTo(hamPanel,
+    { opacity: 0, y: -30 },
+    { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }
+  );
   console.log("display: flexになりました！");
 
 });
@@ -51,7 +55,16 @@ hamIcon.addEventListener("click", () => {
 // メニューリンクをクリックしたら閉じる
 hamLinks.forEach(link => {
   link.addEventListener("click", () => {
-    if (menuOpen) closeMenu();
+    gsap.to(hamPanel, {
+      opacity: 0,
+      y: -30,
+      duration: 0.4,
+      ease: "power2.in",
+      onComplete: () => {
+        hamPanel.style.display = 'none';
+        console.log("📴 メニューリンクがクリックされました → メニューをふわっと閉じました");
+      }
+    });
   });
 });
 
@@ -59,5 +72,14 @@ const closeButton = document.querySelector('.ham-menu__close');
 const menuPanel = document.querySelector('.ham-menu__panel');
 
 closeButton.addEventListener('click', () => {
-  menuPanel.style.display = 'none';
+  gsap.to(menuPanel, {
+    opacity: 0,
+    y: -30,
+    duration: 0.4,
+    ease: "power2.in",
+    onComplete: () => {
+      menuPanel.style.display = 'none';
+      console.log("❌ ×ボタンがクリックされました → メニューをふわっと非表示に");
+    }
+  });
 });
