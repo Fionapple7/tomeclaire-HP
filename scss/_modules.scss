@@ -1,4 +1,5 @@
 @use 'variable' as *;
+@use 'mixin' as *;
 
 
 .header {
@@ -14,17 +15,63 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 40px;
+
+  @include mq('sp') {
+    height: 64px;
+    padding: 0 0 0 16px;
+    background-color: $overlay2; // スマホではオーバーレイカラーを適用
+  }
+
+  .ham{
+    display: none;
+    @include mq('sp') {
+      display: block; // スマホでのみ表示
+      width: 64px;
+      height: 64px;
+      padding: 16px;
+      background-color: $overlay1;
+    }
+
+    &-icon {
+      display: flex;
+      flex-flow: column;
+      row-gap: 8px; // ボーダー間のスペース
+      margin-bottom: 3px; // ボーダーの下にスペースを追加
+    }
+
+    &__border {
+      width: 100%;
+      height: 1px;
+      border-radius: 16px; // 角を丸くする
+      background-color: #d9d9d9; // グレーの色を指定
+      
+    }
+
+    &__menu {
+      color: #fff;
+      font-size: 10px;
+      text-align: center;
+    }
+  }
+
+  
 }
 
 
 .header__logo {
   height: 60px;
+  @include mq('sp') {
+    height: 36px; // スマホでは少し小さく
+  }
 }
 
 .nav {
   display: flex;
   align-items: center;
   gap: 32px;
+  @include mq('sp') {
+    display: none; // スマホでは非表示
+  }
 
   .nav-menu {
     display: flex;
@@ -95,6 +142,104 @@
     }
 }
 
+.ham-menu__panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba($baseColor-2, 0.95);
+  z-index: 999;
+  display: none; // ← 最初は隠す
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  will-change: opacity, transform;
+
+
+  &.is-open {
+    display: flex;
+    animation: fadeIn 0.3s ease-out; // 任意アニメーション
+  }
+
+  .ham-menu__list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 32px;
+    text-align: center;
+
+    li {
+      margin-bottom: 16px;
+
+      a {
+        font-size: 20px;
+        font-family: $playfair;
+        color: $textColor-1;
+        text-decoration: none;
+      }
+    }
+  }
+
+  .ham-menu__sns {
+    display: flex;
+    gap: 24px;
+
+    a {
+      font-size: 24px;
+      color: $textColor-1;
+    }
+  }
+
+  .ham-menu__overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba($baseColor-2, 0.7);
+  z-index: 998;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.ham-menu__close {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  font-size: 28px;
+  background: none;
+  border: none;
+  color: $textColor-1;
+  cursor: pointer;
+  font-family: $sans;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.2);
+   }
+  }
+
+// おしゃれなhover追加（既存内に追記OK）
+
+  .ham-menu__panel .ham-menu__list a {
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: $accentColor-1;
+    }
+  }
+
+  .ham-menu__panel .ham-menu__sns a {
+     transition: transform 0.3s ease;
+
+     &:hover {
+      transform: scale(1.2);
+      color: $accentColor-1;
+    }
+  }
+}
+
 .hero {
   position: relative;
   height: 1024px;
@@ -121,23 +266,29 @@
     color: $textColor-2;
     font-family: $serif;
     line-height: 1.6;
+    @include mq('sp'){
+      font-size: 24px;
+    }
+      
   }
 
   &__logo {
-     width: 384px;
-  height: 84px;
-  object-fit: contain; // 画像の比率を保ったまま枠内におさめる（任意）
+    width: 384px;
+    height: 84px;
+    object-fit: contain; // 画像の比率を保ったまま枠内におさめる（任意）
+    @include mq('sp'){
+    height: 50px;
+    }
   }
 }
-
 .concept {
   background-color: $baseColor-1;
 
   &__row {
     width: 100%;
-    padding: 80px 0;
     display: flex;
     justify-content: center;
+    
 
     &--first {
     background-color: $baseColor-1;
@@ -152,24 +303,34 @@
 
   &__inner {
     display: flex;
-    gap: 64px;
-    max-width: 1440px;
-    width: 100%;
+    gap: 59px;
     padding: 0 40px;
     align-items: center;
+    @include mq('sp') {
+      display: block;
+      gap: 0;
+    }
+    
   }
 
   &__text,
   &__image {
     width: 50%;
+    @include mq('sp') {
+      width: 100%; // スマホでは全幅に
+    }
   }
 
   &__title {
     font-family: $playfair;
-    font-size: 56px;
+    //font-size: 56px;  ←h2で設定しているから削除　htmlでもh2.classで設定している
     font-weight: 600;
     color: $textColor-2;
     margin-bottom: 72px;
+    @include mq('sp') {
+      padding-top: 96px;
+      margin-bottom: 48px; // スマホでは余白を小さく
+    }
   }
 
   &__copy {
@@ -178,48 +339,68 @@
     font-weight: 700; // ← ★ここを追加（または bold でもOK）
     color: $textColor-2;
     margin-bottom: 24px;
+    @include mq('sp') {
+      font-size: 20px; // スマホでは少し小さく
+      margin-bottom: 16px;
+    }
   }
 
   &__body {
-    font-size: 14px;
     line-height: 2;
     font-family: $serif;
     color: $textColor-2;
+    @include mq('sp') {
+      line-height: 1.5;
+    }
   }
 
   &__image img {
     width: 100%;
     height: auto;
-    border-radius: 8px;
     object-fit: cover;
+    padding-bottom: 120px;
+    @include mq('sp') {
+      padding-top: 48px;
+      padding-bottom: 96px; // スマホでは余白を小さく
+    }
   }
-}
+  &__row--second{
+     .concept__inner {
+      @include mq('sp') {
+        display: flex;
+        flex-direction: column-reverse;
+      }
+    }
+   }
+  } 
+
 
 
 .works {
-  background-color: $baseColor-2;
-  padding: 120px; 
+  background-color: $baseColor-2; 
   text-align: center;
   
 
   &__inner {
-    max-width: 1440px;
-    margin: 0 auto;
-    padding: 120px 180px;
+    padding-top: 120px;
+    padding-bottom: 120px;
   }
 
   &__title {
     font-family: $playfair;
-    font-size: 56px; // コンセプトと同じ
     font-weight: 600;
     color: $textColor-2;
     margin-bottom: 64px;
   }
 
-  &__grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 48px;
+  &__scroll-row {
+    display: flex;
+    gap: 17px;
+    @include mq('sp'){
+      column-gap: 8px;
+      width: calc(100% + 24px);
+      overflow-x: scroll;
+    }
   }
 
   &__item {
@@ -227,6 +408,11 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start; // ← ★ 左揃えに変更
+    margin-bottom: 48px;
+    @include mq('sp'){
+      flex-shrink: 0;
+      width: 58vw;
+    }
   }
 
   &__image {
@@ -239,14 +425,16 @@
       height: 100%;
       object-fit: cover;
       display: block;
-      border-radius: 8px;
     }
   }
 
   &__text {
-  margin-top: 24px;
+  margin-top: 16px;
   text-align: left;       // ← ★ テキストを左寄せ
   width: 100%;            // または max-width: 349px; にして画像と揃えるのもOK
+  @include mq('sp'){
+    margin-top: 8px;
+  }
 }
 
 
@@ -255,14 +443,22 @@
     font-family: $sans;
     font-weight: 600;
     color: $textColor-2;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
+    @include mq('sp'){
+      font-size: 16px;
+      margin-bottom: 4px;
+    }
   }
 
   &__desc {
     font-size: 14px;
     font-family: $sans;
     color: $textColor-2;
-    line-height: 1.8;
+    line-height: 1.5;
+    @include mq('sp'){
+      font-size: 12px;
+      line-height: 1.15;
+    }
   }
 }
 
@@ -272,13 +468,18 @@
   background-color: $baseColor-1;
   padding: 120px;
   text-align: left;
+  @include mq('sp'){
+    padding: 120px 0;
+  }
 
   &__title {
     font-family: $playfair;
-    font-size: 56px;
     font-weight: 600;
     color: $textColor-2;
     margin-bottom: 64px;
+    @include mq('sp'){
+      text-align:center
+    }
   }
 
   &__price {
@@ -287,24 +488,36 @@
   padding: 24px 48px 48px 40px;
   box-sizing: border-box;
   margin-bottom: 80px;
+  @include mq('sp'){
+    padding: 32px 0 56px 0;
+  }
 }
 
-// ❗ ネストせず独立セレクタとして記述
+// ネストせず独立セレクタとして記述
 &__price-heading {
   font-size: 24px;
   font-family: $sans;
   font-weight: 600;
   color: $accentColor-3;
   line-height: 1.6;
-  margin: 0;
+  margin-bottom: 32px; 
+  @include mq('sp'){
+    font-size: 20px;
+    text-align: center;
+  }
 }
 
 
   &__list-wrap {
     display: flex;
-    gap: 64px;
+    gap: 120px;
     max-width: 900px;
     margin: 0 auto;
+  @include mq('sp'){
+    display: block;
+    gap: 0;
+    padding: 0 15%;
+  }
   }
 
   &__list {
@@ -314,6 +527,9 @@
     font-family: $sans;
     color: $textColor-2;
     width: 100%;
+    @include mq('sp'){
+      font-size: 16px;
+    }
 
     li {
       display: flex;
@@ -339,6 +555,12 @@
   margin-bottom: 48px;
   text-align: left;
   margin-top: 80px; // 緑枠から80pxの余白を空ける
+    @include mq('sp'){
+      font-size: 24px;
+      text-align: center;
+      margin-top: 96px;
+    }
+
 }
 
 .order__step {
@@ -351,6 +573,12 @@
     color: $textColor-2;
     margin-bottom: 16px;
     line-height: 1.5;
+     @include mq('sp'){
+      font-size: 16px;
+      padding: 0 15%;
+      margin-bottom: 8px;
+      line-height: 1.2;
+     }
   }
 
   p {
@@ -359,6 +587,12 @@
     color: $textColor-2;
     line-height: 1.8;
     margin-left: 96px;
+     @include mq('sp'){
+      font-size: 12px;
+      line-height: 1.15;
+      margin-left: 0;
+      padding: 0 15%;
+     }
   }
 }
 
@@ -403,6 +637,9 @@
     color: #fff;
     margin-bottom: 24px;
     text-align: center; // 中央揃え
+     @include mq('sp'){
+      font-size: 14px;
+      }
   }
 
   .btn {
@@ -469,7 +706,6 @@
   }
 
   &__copy {
-    font-size: 14px; // コピーライトのフォントサイズを調整
     color: $textColor-2; // コピーライトの色を$textColor-2に設定
     font-family: $sans; // 必要に応じてフォントを指定
     font-weight: 400; // 必要に応じてフォントウェイトを指定

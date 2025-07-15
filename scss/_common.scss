@@ -1,5 +1,6 @@
 @use 'variable' as *;
 @use 'layout' as *;
+@use 'mixin' as *;
 
 body {
     color: $textColor-2;
@@ -9,6 +10,10 @@ body {
 
 h2{
     font-size: 56px;
+
+    @include mq('sp') {
+        font-size: 24px;
+    }
 }
 
 h3{
@@ -18,12 +23,30 @@ h3{
 
 p{
     font-size: 16px;
+    @include mq('sp') {
+        font-size: 14px;
+    }
 }   
 
 li{
     list-style: none;
 }
 
+.sp-none{
+    display: block;
+
+    @include mq('sp') {
+        display: none;
+    }
+}
 
 
 
+.price {
+  font-feature-settings: 'tnum';
+  min-width: 100px;
+  text-align: right;
+}
+.item {
+  flex: 1;
+}

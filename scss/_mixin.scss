@@ -1,0 +1,14 @@
+//複数の設定をまとめたもの
+$breakpoint:(
+    'sp':'screen and (max-width: 599px)',
+    'tab':'screen and (max-width: 1024px)',
+    'pc':'screen and (min-width: 1025px)',
+);
+
+// メディアクエリを使うためのmixin
+@mixin mq($size) {
+    @media #{map-get($breakpoint, $size)} {
+        @content;
+    }
+}
+    
